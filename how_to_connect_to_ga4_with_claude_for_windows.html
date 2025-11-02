@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows版: GA4とClaude Desktopの完全接続手順</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 4px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        h2 {
+            color: #2980b9;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            padding-left: 15px;
+            border-left: 5px solid #3498db;
+        }
+
+        h3 {
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        h4 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .error-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            color: #e83e8c;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        .checklist {
+            background: #f9f9f9;
+            border: 2px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .checklist li {
+            list-style: none;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            color: #3498db;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 30px 0;
+        }
+
+        .toc h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+        }
+
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .toc li {
+            padding: 5px 0;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+            pre {
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Windows版: GA4とClaude Desktopの完全接続手順(ゼロから)</h1>
+
+    <div class="info-box">
+        <p><strong>対象:</strong> 何もインストールされていないWindows端末を想定した完全な手順書です。</p>
+    </div>
+
+    <div class="toc">
+        <h2>目次</h2>
+        <ul>
+            <li><a href="#requirements">必要な動作環境</a></li>
+            <li><a href="#preparation">事前準備</a></li>
+            <li><a href="#step1">ステップ1: Pythonのインストール</a></li>
+            <li><a href="#step2">ステップ2: pipxのインストール</a></li>
+            <li><a href="#step3">ステップ3: Google Cloud CLIのインストール</a></li>
+            <li><a href="#step4">ステップ4: Google Cloud Projectの作成</a></li>
+            <li><a href="#step5">ステップ5: 認証情報の設定</a></li>
+            <li><a href="#step6">ステップ6: GA4プロパティIDの取得</a></li>
+            <li><a href="#step7">ステップ7: Claude Desktopのインストール</a></li>
+            <li><a href="#step8">ステップ8: Claude Desktopの設定</a></li>
+            <li><a href="#step9">ステップ9: Claude Desktopの再起動</a></li>
+            <li><a href="#step10">ステップ10: 動作確認</a></li>
+            <li><a href="#troubleshooting">トラブルシューティング</a></li>
+            <li><a href="#checklist">チェックリスト</a></li>
+        </ul>
+    </div>
+
+    <h2 id="requirements">必要な動作環境</h2>
+    <p>以下のソフトウェアをインストールします:</p>
+    <ol>
+        <li><strong>Python 3.10以上</strong> - pipxの実行に必要</li>
+        <li><strong>Google Cloud CLI</strong> - Google認証に必要</li>
+        <li><strong>Claude Desktop</strong> - MCPサーバーのクライアント</li>
+        <li><strong>pipx</strong> - Pythonパッケージマネージャー</li>
+    </ol>
+
+    <div class="success-box">
+        <p><strong>不要なもの:</strong></p>
+        <ul>
+            <li>Node.js(不要です)</li>
+            <li>npm(不要です)</li>
+        </ul>
+    </div>
+
+    <h2 id="preparation">事前準備: 必要な情報</h2>
+    <p>以下をメモ帳に用意しておいてください:</p>
+    <div class="checklist">
+        <ul>
+            <li>Googleアカウント(GA4にアクセスできるもの)</li>
+            <li>GA4プロパティID(後で取得)</li>
+            <li>Google CloudプロジェクトID(後で作成)</li>
+        </ul>
+    </div>
+
+    <h2 id="step1">ステップ1: Pythonのインストール</h2>
+
+    <h3>1-1. Python公式サイトからダウンロード</h3>
+    <ol>
+        <li>ブラウザで <a href="https://www.python.org/downloads/" target="_blank">https://www.python.org/downloads/</a> を開く</li>
+        <li>「Download Python 3.x.x」ボタンをクリック</li>
+        <li>ダウンロードした <code>python-3.x.x-amd64.exe</code> を実行</li>
+    </ol>
+
+    <h3>1-2. インストール</h3>
+    <div class="warning-box">
+        <p><strong><span class="emoji">⚠️</span> 重要:</strong> 「Add Python to PATH」に<strong>必ずチェック</strong>を入れる</p>
+    </div>
+    <ol>
+        <li>「Install Now」をクリック</li>
+        <li>インストール完了まで待つ</li>
+        <li>「Close」をクリック</li>
+    </ol>
+
+    <h3>1-3. 確認</h3>
+    <ol>
+        <li>スタートメニューから「PowerShell」を検索して開く</li>
+        <li>以下を入力:</li>
+    </ol>
+    <pre><code>python --version</code></pre>
+    <p><code>Python 3.12.x</code> のような表示が出ればOK</p>
+
+    <h2 id="step2">ステップ2: pipxのインストール</h2>
+
+    <h3>2-1. PowerShellで実行</h3>
+    <pre><code>python -m pip install --user pipx</code></pre>
+
+    <h3>2-2. パスを通す</h3>
+    <pre><code>python -m pipx ensurepath</code></pre>
+
+    <h3>2-3. PowerShellを再起動</h3>
+    <ol>
+        <li>PowerShellを閉じる</li>
+        <li>もう一度「PowerShell」を開く</li>
+    </ol>
+
+    <h3>2-4. 確認</h3>
+    <pre><code>pipx --version</code></pre>
+    <p>バージョン情報が表示されればOK</p>
+
+    <h2 id="step3">ステップ3: Google Cloud CLIのインストール</h2>
+
+    <h3>3-1. インストーラーのダウンロード</h3>
+    <ol>
+        <li>ブラウザで <a href="https://cloud.google.com/sdk/docs/install" target="_blank">https://cloud.google.com/sdk/docs/install</a> を開く</li>
+        <li>「Windows用インストーラー」のセクションを探す</li>
+        <li>「GoogleCloudSDKInstaller.exe」をダウンロード</li>
+    </ol>
+
+    <h3>3-2. インストール</h3>
+    <ol>
+        <li>ダウンロードした <code>GoogleCloudSDKInstaller.exe</code> を実行</li>
+        <li>「Next」をクリック</li>
+        <li>インストール先はデフォルトのまま「Next」</li>
+        <li>すべてのオプションにチェックを入れて「Install」
+            <ul>
+                <li>✅ Start Google Cloud SDK Shell</li>
+                <li>✅ Run gcloud init</li>
+            </ul>
+        </li>
+        <li>インストール完了まで待つ</li>
+    </ol>
+
+    <h3>3-3. 初期設定をスキップ</h3>
+    <p>インストール後、自動で開くウィンドウは一旦閉じてOKです(後で設定します)</p>
+
+    <h3>3-4. 確認</h3>
+    <p>新しくPowerShellを開いて:</p>
+    <pre><code>gcloud --version</code></pre>
+    <p>バージョン情報が表示されればOK</p>
+
+    <div class="warning-box">
+        <p><strong>表示されない場合:</strong></p>
+        <ol>
+            <li>PowerShellを再起動</li>
+            <li>それでもダメなら、PCを再起動</li>
+        </ol>
+    </div>
+
+    <h2 id="step4">ステップ4: Google Cloud Projectの作成</h2>
+
+    <h3>4-1. Google Cloud Consoleにアクセス</h3>
+    <ol>
+        <li>ブラウザで <a href="https://console.cloud.google.com/" target="_blank">https://console.cloud.google.com/</a> を開く</li>
+        <li>Googleアカウントでログイン(GA4にアクセスできるアカウント)</li>
+    </ol>
+
+    <h3>4-2. プロジェクトを作成</h3>
+    <ol>
+        <li>画面上部の「プロジェクトを選択」をクリック</li>
+        <li>右上の「新しいプロジェクト」をクリック</li>
+        <li><strong>プロジェクト名:</strong> <code>analytics-mcp-personal</code> と入力</li>
+        <li>「作成」をクリック</li>
+        <li>数秒待つ</li>
+        <li>通知が来たら「プロジェクトを選択」をクリック</li>
+    </ol>
+
+    <h3>4-3. プロジェクトIDをメモ</h3>
+    <p>画面上部に表示されるプロジェクトID(例: <code>analytics-mcp-personal-123456</code>)をメモ帳にコピー</p>
+
+    <h3>4-4. 必要なAPIを有効化</h3>
+
+    <h4>Google Analytics Admin APIの有効化:</h4>
+    <ol>
+        <li>左上の「≡」メニュー → 「APIとサービス」 → 「ライブラリ」</li>
+        <li>検索ボックスに <code>Google Analytics Admin API</code> と入力</li>
+        <li>検索結果をクリック</li>
+        <li>「有効にする」をクリック</li>
+        <li>有効化完了まで待つ(数秒)</li>
+    </ol>
+
+    <h4>Google Analytics Data APIの有効化:</h4>
+    <ol>
+        <li>左上の「←」で戻る</li>
+        <li>検索ボックスに <code>Google Analytics Data API</code> と入力</li>
+        <li>検索結果をクリック</li>
+        <li>「有効にする」をクリック</li>
+        <li>有効化完了まで待つ</li>
+    </ol>
+
+    <h2 id="step5">ステップ5: 認証情報の設定</h2>
+
+    <h3>5-1. gcloudの初期化</h3>
+    <p>PowerShellで:</p>
+    <pre><code>gcloud init</code></pre>
+
+    <h3>5-2. 設定に答える</h3>
+    <pre><code>Pick configuration to use:</code></pre>
+    <p>→ <code>[1] Re-initialize this configuration [default]</code> と入力してEnter</p>
+
+    <pre><code>Choose the account you would like to use to perform operations</code></pre>
+    <p>→ あなたのGoogleアカウントの番号を入力してEnter</p>
+
+    <p>ブラウザが自動で開きます:</p>
+    <ol>
+        <li>Googleアカウントを選択</li>
+        <li>「許可」をクリック</li>
+        <li>「認証が完了しました」と表示されたらブラウザを閉じる</li>
+    </ol>
+
+    <pre><code>Pick cloud project to use:</code></pre>
+    <p>→ ステップ4-2で作成したプロジェクトの番号を入力してEnter</p>
+
+    <h3>5-3. Application Default Credentials (ADC)を設定</h3>
+    <p>PowerShellで:</p>
+    <pre><code>gcloud auth application-default login --scopes=https://www.googleapis.com/auth/analytics.readonly,https://www.googleapis.com/auth/cloud-platform</code></pre>
+
+    <p>ブラウザが開きます:</p>
+    <ol>
+        <li>Googleアカウントを選択</li>
+        <li>権限の許可画面で「許可」をクリック</li>
+        <li>「認証が完了しました」と表示されたらブラウザを閉じる</li>
+    </ol>
+
+    <h3>5-4. 認証情報ファイルのパスを確認</h3>
+    <p>PowerShellに以下のようなメッセージが表示されます:</p>
+    <pre><code>Credentials saved to file: [C:\Users\YourName\AppData\Roaming\gcloud\application_default_credentials.json]</code></pre>
+
+    <div class="warning-box">
+        <p><strong>この<span style="text-decoration: underline;">パス全体</span>(C:\Users\... から .json まで)をメモ帳にコピーして保存</strong></p>
+    </div>
+
+    <p><strong>一般的なパス:</strong></p>
+    <pre><code>C:\Users\YourName\AppData\Roaming\gcloud\application_default_credentials.json</code></pre>
+    <p>※ <code>YourName</code> の部分はあなたのWindowsユーザー名</p>
+
+    <h2 id="step6">ステップ6: GA4プロパティIDの取得</h2>
+
+    <h3>6-1. Google Analyticsにアクセス</h3>
+    <p>ブラウザで <a href="https://analytics.google.com/" target="_blank">https://analytics.google.com/</a> を開く</p>
+
+    <h3>6-2. プロパティIDを確認</h3>
+    <ol>
+        <li>左下の「管理」(⚙️アイコン)をクリック</li>
+        <li>真ん中の列「プロパティ」の「プロパティ設定」をクリック</li>
+        <li>右上に表示される「プロパティID」をメモ帳にコピー
+            <ul>
+                <li>例: <code>123456789</code> (9桁の数字)</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h2 id="step7">ステップ7: Claude Desktopのインストール</h2>
+
+    <h3>7-1. ダウンロード</h3>
+    <ol>
+        <li>ブラウザで <a href="https://claude.ai/download" target="_blank">https://claude.ai/download</a> を開く</li>
+        <li>「Download for Windows」をクリック</li>
+        <li>インストーラーをダウンロード</li>
+    </ol>
+
+    <h3>7-2. インストール</h3>
+    <ol>
+        <li>ダウンロードした <code>Claude-Setup-x64.exe</code> を実行</li>
+        <li>インストールが自動で進む</li>
+        <li>完了したらClaude Desktopが起動</li>
+    </ol>
+
+    <h3>7-3. ログイン</h3>
+    <p>Anthropicアカウントでログイン</p>
+
+    <h2 id="step8">ステップ8: Claude Desktopの設定</h2>
+
+    <h3>8-1. 設定ファイルを作成</h3>
+
+    <h4>エクスプローラーを開く:</h4>
+    <ol>
+        <li>Windowsキー + R を押す</li>
+        <li><code>%APPDATA%</code> と入力してEnter</li>
+        <li><code>Claude</code> フォルダを探す(なければ作成)</li>
+        <li><code>Claude</code> フォルダ内に <code>claude_desktop_config.json</code> というファイルを作成</li>
+    </ol>
+
+    <h4>ファイルの作成方法:</h4>
+    <ol>
+        <li><code>Claude</code> フォルダ内で右クリック</li>
+        <li>「新規作成」→「テキスト ドキュメント」</li>
+        <li>ファイル名を <code>claude_desktop_config.json</code> に変更
+            <ul>
+                <li><strong>重要:</strong> 拡張子が <code>.json</code> であることを確認</li>
+                <li>拡張子が見えない場合: エクスプローラーの「表示」タブ → 「ファイル名拡張子」にチェック</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h3>8-2. 設定内容を記述</h3>
+    <p><code>claude_desktop_config.json</code> を右クリック → 「プログラムから開く」→「メモ帳」で開く</p>
+    <p>以下をコピーして貼り付け:</p>
+
+    <pre><code>{
+  "mcpServers": {
+    "analytics-mcp": {
+      "command": "pipx",
+      "args": [
+        "run",
+        "analytics-mcp"
+      ],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\YourName\\AppData\\Roaming\\gcloud\\application_default_credentials.json",
+        "GOOGLE_CLOUD_PROJECT": "analytics-mcp-personal-123456"
+      }
+    }
+  }
+}</code></pre>
+
+    <h3>8-3. 必ず置き換える箇所</h3>
+
+    <h4>1. <code>GOOGLE_APPLICATION_CREDENTIALS</code> の値:</h4>
+    <ul>
+        <li>ステップ5-4でメモしたパスに置き換え</li>
+    </ul>
+
+    <div class="error-box">
+        <p><strong><span class="emoji">⚠️</span> 重要:</strong> <code>\</code> を <code>\\</code> に変更する</p>
+        <ul>
+            <li>❌ 間違い: <code>C:\Users\YourName\AppData\...</code></li>
+            <li>✅ 正しい: <code>C:\\Users\\YourName\\AppData\\...</code></li>
+        </ul>
+    </div>
+
+    <div class="info-box">
+        <p><strong>例:</strong></p>
+        <p>ステップ5-4でメモしたパス:</p>
+        <pre><code>C:\Users\Tanaka\AppData\Roaming\gcloud\application_default_credentials.json</code></pre>
+        <p>設定ファイルに書く内容:</p>
+        <pre><code>C:\\Users\\Tanaka\\AppData\\Roaming\\gcloud\\application_default_credentials.json</code></pre>
+    </div>
+
+    <h4>2. <code>GOOGLE_CLOUD_PROJECT</code> の値:</h4>
+    <ul>
+        <li>ステップ4-3でメモしたプロジェクトIDに置き換え</li>
+        <li>例: <code>analytics-mcp-personal-123456</code></li>
+    </ul>
+
+    <h3>8-4. 保存</h3>
+    <ol>
+        <li>メモ帳で Ctrl + S を押して保存</li>
+        <li>メモ帳を閉じる</li>
+    </ol>
+
+    <h3>8-5. 設定例(完成版)</h3>
+    <p>実際の例:</p>
+    <pre><code>{
+  "mcpServers": {
+    "analytics-mcp": {
+      "command": "pipx",
+      "args": [
+        "run",
+        "analytics-mcp"
+      ],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\Tanaka\\AppData\\Roaming\\gcloud\\application_default_credentials.json",
+        "GOOGLE_CLOUD_PROJECT": "analytics-mcp-personal-123456"
+      }
+    }
+  }
+}</code></pre>
+
+    <h2 id="step9">ステップ9: Claude Desktopの再起動</h2>
+    <ol>
+        <li>Claude Desktopを<strong>完全に終了</strong>
+            <ul>
+                <li>右上の × をクリック</li>
+                <li>タスクトレイにアイコンがある場合は右クリック → 「終了」</li>
+            </ul>
+        </li>
+        <li>もう一度Claude Desktopを起動</li>
+    </ol>
+
+    <h2 id="step10">ステップ10: 動作確認</h2>
+
+    <h3>10-1. 接続テスト</h3>
+    <p>Claude Desktopで以下を入力:</p>
+    <pre><code>Google Analyticsに接続できていますか?</code></pre>
+
+    <h3>10-2. データ取得テスト</h3>
+    <pre><code>GA4のアカウント情報を取得してください</code></pre>
+
+    <h3>10-3. レポート実行テスト</h3>
+    <pre><code>過去7日間のセッション数とユーザー数を教えてください</code></pre>
+
+    <h3>10-4. 成功の確認</h3>
+    <div class="success-box">
+        <p>以下のような情報が表示されれば成功です:</p>
+        <ul>
+            <li>✅ アカウント名やプロパティ名が表示される</li>
+            <li>✅ セッション数やユーザー数のデータが表示される</li>
+        </ul>
+    </div>
+
+    <h2 id="troubleshooting">トラブルシューティング</h2>
+
+    <h3>エラー1: <code>python: コマンドが見つかりません</code></h3>
+    <div class="error-box">
+        <p><strong>原因:</strong> Pythonのパスが通っていない</p>
+        <p><strong>解決策:</strong></p>
+        <ol>
+            <li>Pythonを再インストール</li>
+            <li>インストール時に「Add Python to PATH」に必ずチェック</li>
+        </ol>
+    </div>
+
+    <h3>エラー2: <code>pipx: コマンドが見つかりません</code></h3>
+    <div class="error-box">
+        <p><strong>解決策:</strong></p>
+        <pre><code>python -m pip install --user pipx
+python -m pipx ensurepath</code></pre>
+        <p>その後、PowerShellを再起動</p>
+    </div>
+
+    <h3>エラー3: <code>gcloud: コマンドが見つかりません</code></h3>
+    <div class="error-box">
+        <p><strong>解決策:</strong></p>
+        <ol>
+            <li>PowerShellを再起動</li>
+            <li>それでもダメならPCを再起動</li>
+            <li>まだダメなら Google Cloud CLI を再インストール</li>
+        </ol>
+    </div>
+
+    <h3>エラー4: <code>API not enabled</code></h3>
+    <div class="error-box">
+        <p><strong>原因:</strong> APIが有効化されていない</p>
+        <p><strong>解決策:</strong></p>
+        <ol>
+            <li><a href="https://console.cloud.google.com/" target="_blank">https://console.cloud.google.com/</a> を開く</li>
+            <li>正しいプロジェクトが選択されているか確認</li>
+            <li>ステップ4-4に戻ってAPIを有効化</li>
+        </ol>
+    </div>
+
+    <h3>エラー5: <code>Permission denied</code> または <code>403 Forbidden</code></h3>
+    <div class="error-box">
+        <p><strong>原因:</strong> GA4へのアクセス権限がない、またはプロパティIDが間違っている</p>
+        <p><strong>解決策:</strong></p>
+        <ol>
+            <li>ステップ6-2でコピーしたプロパティIDが正しいか確認</li>
+            <li>GA4で自分のアカウントに閲覧者以上の権限があるか確認</li>
+            <li>認証に使ったGoogleアカウントとGA4にアクセスできるアカウントが同じか確認</li>
+        </ol>
+    </div>
+
+    <h3>エラー6: Claude DesktopでMCPサーバーが認識されない</h3>
+    <div class="error-box">
+        <p><strong>原因:</strong> 設定ファイルの書式エラー</p>
+        <p><strong>解決策:</strong></p>
+        <ol>
+            <li><code>claude_desktop_config.json</code> をメモ帳で開く</li>
+            <li>以下を確認:
+                <ul>
+                    <li>✅ <code>\</code> が <code>\\</code> になっているか</li>
+                    <li>✅ カンマ、括弧、引用符が正しいか</li>
+                    <li>✅ 最後の行の後ろにカンマがないか</li>
+                </ul>
+            </li>
+            <li><a href="https://jsonlint.com/" target="_blank">https://jsonlint.com/</a> で構文チェック</li>
+        </ol>
+    </div>
+
+    <h3>エラー7: <code>Invalid credentials</code></h3>
+    <div class="error-box">
+        <p><strong>解決策:</strong></p>
+        <pre><code>gcloud auth application-default login --scopes=https://www.googleapis.com/auth/analytics.readonly,https://www.googleapis.com/auth/cloud-platform</code></pre>
+        <p>を再実行</p>
+    </div>
+
+    <h2>設定ファイルのテンプレート(コピペ用)</h2>
+    <pre><code>{
+  "mcpServers": {
+    "analytics-mcp": {
+      "command": "pipx",
+      "args": [
+        "run",
+        "analytics-mcp"
+      ],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\YourName\\AppData\\Roaming\\gcloud\\application_default_credentials.json",
+        "GOOGLE_CLOUD_PROJECT": "your-project-id"
+      }
+    }
+  }
+}</code></pre>
+
+    <div class="warning-box">
+        <p><strong>必ず置き換え:</strong></p>
+        <ul>
+            <li><code>YourName</code> → あなたのWindowsユーザー名</li>
+            <li><code>your-project-id</code> → ステップ4-3のプロジェクトID</li>
+            <li><code>\</code> は必ず <code>\\</code> にする</li>
+        </ul>
+    </div>
+
+    <h2 id="checklist">チェックリスト</h2>
+    <div class="checklist">
+        <p><strong>設定前に確認:</strong></p>
+        <ul>
+            <li>Python 3.10以上がインストール済み</li>
+            <li>pipxがインストール済み</li>
+            <li>Google Cloud CLIがインストール済み</li>
+            <li>Claude Desktopがインストール済み</li>
+            <li>Google CloudプロジェクトでAPIを有効化済み</li>
+            <li>gcloudで認証完了</li>
+            <li>GA4プロパティIDを取得済み</li>
+            <li>設定ファイルを正しく作成</li>
+            <li><code>\</code> を <code>\\</code> に変更済み</li>
+        </ul>
+    </div>
+
+    <div class="success-box">
+        <p><strong>すべてチェックできたら動作確認へ!</strong></p>
+    </div>
+
+    <hr style="margin: 40px 0; border: none; border-top: 2px solid #ddd;">
+
+    <div class="info-box">
+        <p><strong><span class="emoji">📝</span> まとめ</strong></p>
+        <p>この手順で、何もインストールされていないWindows端末でもGA4とClaude Desktopを接続できます。質問があればお気軽にどうぞ!</p>
+    </div>
+
+    <footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #777; font-size: 0.9em;">
+        <p>Windows版: GA4とClaude Desktop完全接続手順 | 2025年版</p>
+    </footer>
+</div>
+</body>
+</html>
